@@ -2,7 +2,8 @@
 My configuration files for various applications
 
 Applications:
-
-1. zsh
-2. tmux
-3. vim
+1. i3
+2. polybar
+3. zsh
+4. tmux
+5. vim
