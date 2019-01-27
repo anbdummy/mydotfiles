@@ -13,7 +13,7 @@ font xft:URWGothic-Book 11
 
 floating_modifier $mod
 
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec gnome-terminal
 
 # Window kill command
 bindsym $mod+Shift+q kill
@@ -134,24 +134,15 @@ for_window [class="GParted"] floating enable border normal
 for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="Lightdm-gtk-greeter-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Manjaro-hello"] floating enable
-for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [title="MuseScore: Play Panel"] floating enable
-for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="octopi"] floating enable
-for_window [title="About Pale Moon"] floating enable
-for_window [class="Pamac-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="Simple-scan"] floating enable border normal
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="Skype"] floating enable border normal
-for_window [class="Thus"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
-for_window [class="Xfburn"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -206,15 +197,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# Autostart applications
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b
-exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id pamac-tray
-exec --no-startup-id clipit
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id /$HOME/.config/polybar/launch.sh
 
 # Theme colors
 client.focused #aab0bc #131822 #aab0bc #233f66 #233f66
@@ -282,9 +264,21 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
+## Assign Applications to workspaces ##
+assign [class="Gnome-terminal"] 1
+assign [class="Chromium-browser"] 2
+assign [class="Thunderbird"] 3
+assign [class="Zoho Mail - Desktop"] 3
+assign [class="Skype"] 4
+assign [class="Nemo"] 5
+assign [class="Deluge"] 6
+assign [class="VirtualBox Manager"] 7
+
 ## Startup Applications ###
 exec_always --no-startup-id feh --bg-scale /home/amin/Pictures/wallpaper.jpg
+exec_always --no-startup-id /$HOME/.config/polybar/launch.sh
 exec --no-startup-id nm-applet
+exec --no-startup-id blueberry-tray
 exec --no-startup-id redshift
 exec --no-startup-id i3-msg 'workspace 1; exec gnome-terminal'
 exec --no-startup-id i3-msg 'workspace 2; exec firefox'

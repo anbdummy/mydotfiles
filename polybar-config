@@ -27,7 +27,7 @@ font-2 = "Font Awesome 5 Brands:size=10;1"
 
 modules-left = i3
 modules-center = 
-modules-right = wlan cpu memory volume battery date powermenu
+modules-right = cpu memory date wlan volume battery powermenu
 
 wm-restack = i3
 
@@ -148,7 +148,7 @@ type = internal/memory
 format = <label> <bar-used>
 label = RAM
 
-bar-used-width = 10
+bar-used-width = 5
 bar-used-foreground-0 = #aaff77
 bar-used-foreground-1 = #aaff77
 bar-used-foreground-2 = #fba922
