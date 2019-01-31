@@ -1,15 +1,15 @@
 set $mod Mod4
 
-new_window pixel 1
+new_window pixel 1 
 new_float normal
 
-hide_edge_borders none
+hide_edge_borders both
 
 bindsym $mod+u border none
 bindsym $mod+y border pixel 1
 bindsym $mod+n border normal
 
-font xft:URWGothic-Book 11
+font pango: DejaVu Sans Mono 8
 
 floating_modifier $mod
 
@@ -19,7 +19,8 @@ bindsym $mod+Return exec gnome-terminal
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id rofi -show run
+#bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+d exec dmenu_run
 
 # change focus
 bindsym $mod+j focus left
@@ -123,26 +124,6 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
-
-# Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 1
-for_window [class="Calamares"] floating enable border normal
-for_window [class="Clipgrab"] floating enable
-for_window [title="File Transfer*"] floating enable
-for_window [class="Galculator"] floating enable border pixel 1
-for_window [class="GParted"] floating enable border normal
-for_window [title="i3_help"] floating enable sticky enable border normal
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [title="MuseScore: Play Panel"] floating enable
-for_window [class="Oblogout"] fullscreen enable
-for_window [class="octopi"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="qt5ct"] floating enable sticky enable border normal
-for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-for_window [class="Simple-scan"] floating enable border normal
-for_window [class="Skype"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -265,7 +246,6 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 ## Assign Applications to workspaces ##
-assign [class="Gnome-terminal"] 1
 assign [class="Chromium-browser"] 2
 assign [class="Thunderbird"] 3
 assign [class="Zoho Mail - Desktop"] 3
@@ -280,6 +260,7 @@ exec_always --no-startup-id /$HOME/.config/polybar/launch.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
 exec --no-startup-id redshift
+exec --no-startup-id compton -f
 exec --no-startup-id i3-msg 'workspace 1; exec gnome-terminal'
 exec --no-startup-id i3-msg 'workspace 2; exec firefox'
 exec --no-startup-id i3-msg 'workspace 2; exec chromium-browser'
@@ -288,3 +269,6 @@ exec --no-startup-id i3-msg 'workspace 4; exec /opt/zoho-mail'
 exec --no-startup-id i3-msg 'workspace 5; exec skypeforlinux'
 exec --no-startup-id i3-msg 'workspace 6; exec deluge-gtk'
 exec --no-startup-id i3-msg 'workspace 7; exec nemo'
+
+### Desktop screenshot
+bindsym --release Print exec "scrot ~/Pictures/Screenshots/$(date --iso-8601='seconds').png" 
