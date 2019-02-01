@@ -22,8 +22,8 @@ module-margin-left = 1
 module-margin-right = 2
 
 font-0 = "Source Code Pro Semibold:size=10:antialias=true;1"
-font-1 = "Font Awesome 5 Free:style=Solid:size=10;1"
-font-2 = "Font Awesome 5 Brands:size=10;1"
+font-1 = "Font Awesome 5 Free:style=Solid:size=10;3"
+font-2 = "Font Awesome 5 Brands:size=10;3"
 
 modules-left = i3
 modules-center = 
@@ -47,24 +47,33 @@ label-mode-padding = 2
 label-mode-foreground = #131822
 label-mode-background = #131822
 
-label-focused = %index%
+label-focused = %index% %icon%
 label-focused-background = #233f66
 label-focused-foreground = #131822
 label-focused-padding = 2
 
-label-unfocused = %index%
+label-unfocused = %index% %icon%
 label-unfocused-background = #233f66
 label-unfocused-foreground = #131822
 label-unfocused-padding = 2
 
-label-visible = %index%
+label-visible = %index% %icon%
 label-visible-background = #233f66
 label-visible-foreground = #131822
 label-visible-padding = 2
 
-label-urgent = %index%
+label-urgent = %index% %icon%
 label-urgent-background = #BA2922
 label-urgent-padding = 2
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon=6 = 7;
+ws-icon-default =  
 
 [module/wlan]
 type = internal/network
