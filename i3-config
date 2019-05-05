@@ -9,7 +9,7 @@ bindsym $mod+u border none
 bindsym $mod+y border pixel 1
 bindsym $mod+n border normal
 
-font xft:URWGothic-Book 11
+font xft:URWGothic-Book 10 
 
 floating_modifier $mod
 
@@ -205,12 +205,13 @@ mode "resize" {
 # Autostart applications
 exec --no-startup-id compton -f
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec_always --no-startup-id numlockx on
 exec --no-startup-id nm-applet
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id /$HOME/.config/polybar/i3wmthemer_bar_launch.sh
+exec_always --no-startup-id /$HOME/.config/polybar/launch.sh
 
 # Theme colors
 client.focused #56737a #1e1e20 #56737a #56737a #56737a
@@ -290,6 +291,7 @@ bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
 
 ### Floatinng Applications Enable ###
 for_window [class="zoom"] floating enable
+for_window [class="rdesktop"] floating disable
 
 ## Assign Applications to workspaces ##
 assign [class="Gnome-terminal"] 1
@@ -301,12 +303,13 @@ assign [class="Skype"] 4
 assign [class="Nautilus"] 5
 assign [class="Deluge"] 6
 assign [class="VirtualBox Manager"] 7
+assign [class="rdesktop"] 8
 
 ## Startup Applications ###
 exec_always --no-startup-id feh --bg-fill --bg-scale /home/amin/Pictures/wallpaper.jpg
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
-exec --no-startup-id redshift
+exec --no-startup-id redshift-gtk
 exec --no-startup-id compton -f
 exec --no-startup-id i3-msg 'workspace 1; exec gnome-terminal'
 exec --no-startup-id i3-msg 'workspace 2; exec firefox'

@@ -1,13 +1,12 @@
 [bar/bottom_bar]
 bottom = true
 width = 100%
-height = 20
-monitor = LVDS1
+height = 25 
 radius = 0
 fixed-center = false
 
-background = #131822
-foreground = #aab0bc
+background = #1e1e20
+foreground = #c5c8c6
 
 line-size = 3
 line-color =
@@ -21,15 +20,13 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = "Source Code Pro Semibold:size=10:antialias=true;1"
-font-1 = "Font Awesome 5 Free:style=Solid:size=10;3"
-font-2 = "Font Awesome 5 Brands:size=10;3"
+font-0 = "Source Code Pro Semibold:size=12;1"
+font-1 = "Font Awesome 5 Free:style=Solid:size=11;1"
+font-2 = "Font Awesome 5 Brands:size=11;1"
 
 modules-left = i3
 modules-center = 
-modules-right = wlan cpu memory date volume battery powermenu
-
-wm-restack = i3
+modules-right = eth wlan cpu memory date backlight volume battery powermenu
 
 tray-position = right
 ;tray-padding =
@@ -72,12 +69,12 @@ ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
 ws-icon-5 = 6;
-ws-icon=6 = 7;
+ws-icon-6 = 7;
 ws-icon-default =  
 
 [module/wlan]
 type = internal/network
-interface = wlp8s0 
+interface = wlo1 
 interval = 1.0
 ping-interval = 10
 
@@ -98,7 +95,7 @@ ramp-signal-foreground = #131822
 
 [module/eth]
 type = internal/network
-interface = enp0s3
+interface = eno1 
 interval = 3.0
 
 format-connected-padding = 2
@@ -112,7 +109,7 @@ format-disconnected =
 
 [module/date]
 type = internal/date
-date = %%{F#99} %d-%m-%Y%%{F-}  %%{F#fff}%l:%M:%S %p%%{F-}
+date =   %%{F#99} %d-%m-%Y%%{F-}  %%{F#fff}%l:%M:%S %p%%{F-}
 date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
 
 format-prefix = 
@@ -173,7 +170,7 @@ bar-used-empty-foreground = #444444
 
 [module/battery]
 type = internal/battery
-battery = BAT1
+battery = BAT0
 adapter = ACAD
 full-at = 98
 
@@ -262,6 +259,29 @@ format-muted = <label-muted>
 
 [settings]
 screenchange-reload = true
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+output = eDP-1-1
+enable-scroll = true
+
+format = <ramp> <label>
+
+label = %percentage%%
+
+; Only applies if <ramp> is used
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+
+; Only applies if <bar> is used
+bar-width = 10
+bar-indicator = |
+bar-fill = ─
+bar-empty = ─
 
 [global/wm]
 margin-top = 10
