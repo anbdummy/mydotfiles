@@ -276,9 +276,9 @@ exec --no-startup-id mate-power-manager
 exec_always --no-startup-id xrandr --output HDMI-1-1 --off --output eDP-1-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-0 --mode 1280x1024 --pos 1920x56 --rotate normal --output DP-1-1 --off --output DP-0 --off
 
 ## System Power Shortcuts ###
-bindsym Control+$mod+l exec i3lock -t -i /home/amin/Pictures/lock.png
-bindsym Control+$mod+s exec i3lock -t -i /home/amin/Pictures/lock.png; exec systemctl suspend
-bindsym Control+$mod+h exec i3lock -t -i /home/amin/Pictures/lock.png; exec systemctl hibernate
+bindsym Control+$mod+l exec i3lock -t -i /$HOME/Pictures/lock.png
+bindsym Control+$mod+s exec i3lock -t -i /$HOME/Pictures/lock.png; exec systemctl suspend
+bindsym Control+$mod+h exec i3lock -t -i /$HOME/Pictures/lock.png; exec systemctl hibernate
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q set Master 2dB+ unmute
@@ -310,7 +310,7 @@ assign [class="VirtualBox Manager"] 7
 assign [class="rdesktop"] 8
 
 ## Startup Applications ###
-exec_always --no-startup-id feh --bg-fill --bg-scale /home/amin/Pictures/wallpaper.jpg
+exec_always --no-startup-id feh --bg-fill --bg-scale /$HOME/Pictures/wallpaper.jpg
 exec --no-startup-id greenclip daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
