@@ -1,9 +1,11 @@
 [bar/bottom_bar]
 bottom = true
+monitor = ${env:MONITOR:}
 width = 100%
 height = 25 
 radius = 0
 fixed-center = false
+separator = |
 
 background = #1e1e20
 foreground = #c5c8c6
@@ -18,15 +20,17 @@ padding-left = 0
 padding-right = 2
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
-font-0 = "Source Code Pro Semibold:size=12;1"
-font-1 = "Font Awesome 5 Free:style=Solid:size=11;1"
-font-2 = "Font Awesome 5 Brands:size=11;1"
+font-0 = "Source Code Pro Semibold:size=9;1"
+font-1 = "Symbols Nert Font:size=10;1"
+font-2 = "Font Awesome 5 Free:style=Solid:size=9;1"
+font-3 = "Font Awesome 5 Brands:size=9;1"
+font-4 = "Weather Icons:size=12;1"
 
 modules-left = i3
 modules-center = 
-modules-right = eth wlan cpu memory date backlight volume battery powermenu
+modules-right = ticker-crypto openweathermap-simple wlan system-nvidia-smi cpu memory date backlight system-bluetooth-bluetoothctl pulseaudio battery powermenu
 
 tray-position = right
 ;tray-padding =
@@ -34,19 +38,26 @@ tray-position = right
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[settings]
+pseudo-transparency = true
+
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
 
-label-mode-padding = 2
+label-mode-padding = 0 
 label-mode-foreground = #131822
 label-mode-background = #131822
 
 label-focused = %index% %icon%
 label-focused-background = #233f66
-label-focused-foreground = #131822
+label-focused-foreground = #ffffff
 label-focused-padding = 2
 
 label-unfocused = %index% %icon%
@@ -63,13 +74,13 @@ label-urgent = %index% %icon%
 label-urgent-background = #BA2922
 label-urgent-padding = 2
 
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-6 = 7;
+;ws-icon-0 = 1;
+;ws-icon-1 = 2;
+;ws-icon-2 = 3;
+;ws-icon-3 = 4;
+;ws-icon-4 = 5;
+;ws-icon-5 = 6;
+;ws-icon-6 = 7;
 ws-icon-default =  
 
 [module/wlan]
@@ -78,20 +89,13 @@ interface = wlo1
 interval = 1.0
 ping-interval = 10
 
-format-connected = <ramp-signal> <label-connected>
-label-connected =  %local_ip%      %downspeed%      %upspeed% 
-format-connected-foreground = #131822
-format-connected-background = #233f66
-format-connected-padding = 2
+format-connected = <label-connected>
+label-connected =  %local_ip%   %downspeed%   %upspeed%
+label-connected-foreground = #7289da
 
-format-disconnected =
-
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = #131822
+format-disconnected = <label-disconnected>
+label-disconnected =  
+label-disconnected-foreground = #aa2200
 
 [module/eth]
 type = internal/network
@@ -99,31 +103,35 @@ interface = eno1
 interval = 3.0
 
 format-connected-padding = 2
-format-connected-foreground = #131822
-format-connected-background = #233f66
+format-connected-foreground = #7289da
 format-connected-prefix = " "
 format-connected-prefix-foreground = #131822
 label-connected = %local_ip%
 
-format-disconnected =
+format-disconnected = <label-disconnected>
+label-disconnected =  
+label-disconnected-foreground = #aa2200
 
 [module/date]
 type = internal/date
-date =   %%{F#99} %d-%m-%Y%%{F-}  %%{F#fff}%l:%M:%S %p%%{F-}
+;date =    %%{F##06a28d} %d-%m-%Y%%{F-}   %%{F##06a28d}%l:%M:%S %p%%{F-}
+date =  %d-%m-%Y%%{F-} | %l:%M:%S %p%%{F-}
 date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
 
-format-prefix = 
-format-foreground = #131822
-format-background = #233f66
-format-padding = 2
+format-foreground = #DAF7A6 
+format-padding = 0.7 
 
 label = %date%
 
 [module/cpu]
 type = internal/cpu
 interval = 0.5
-format = <label> <ramp-coreload>
-label = CPU
+format = <label>
+label =  CPU %percentage%%
+format-foreground = #FF69B4
+;format-background = #233f66
+format-padding = 0.7
+
 ramp-coreload-0 = ▁
 ramp-coreload-0-font = 2
 ramp-coreload-0-foreground = #aaff77
@@ -151,8 +159,11 @@ ramp-coreload-7-foreground = #ff5555
 
 [module/memory]
 type = internal/memory
-format = <label> <bar-used>
-label = RAM
+format = <label>
+label =  RAM %percentage_used%%
+format-foreground = #FF6347
+;format-background = #233f66
+format-padding = 0.7
 
 bar-used-width = 5
 bar-used-foreground-0 = #aaff77
@@ -171,12 +182,16 @@ bar-used-empty-foreground = #444444
 [module/battery]
 type = internal/battery
 battery = BAT0
-adapter = ACAD
+adapter = ADP1
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 format-full = <ramp-capacity> <label-full>
+
+format-full-foreground = #32CD32
+format-discharging-foreground = #FF0000
+format-charging-foreground = #32CD32
 
 label-charging = %percentage%%
 label-discharging = %percentage%% 
@@ -243,25 +258,24 @@ menu-3-0-exec = pkill -KILL -u $USER
 menu-3-1 = cancel
 menu-3-1-exec = menu-open-0
 
-[module/volume]
-type = internal/volume
-;speaker-mixer = Speaker
-;headphone-mixer = Headphone
-:headphone-id = 9
-
-label-muted =  Muted 
-label-muted-foreground = #666
-label-volume = %percentage%%
-
-ramp-volume-0 = 
-ramp-volume-1 =  
-ramp-volume-2 = 
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+use-ui-max = false
+interval = 5
 
 format-volume = <ramp-volume> <label-volume>
 format-muted = <label-muted>
 
-[settings]
-screenchange-reload = true
+label-volume = %percentage%%
+label-volume-foreground = #00FFFF
+label-muted =  muted
+label-muted-foreground = #8B0000
+
+ramp-volume-foreground = #00FFFF
+ramp-volume-0 = 
+ramp-volume-1 =  
+ramp-volume-2 = 
 
 [module/backlight]
 type = internal/backlight
@@ -270,15 +284,14 @@ output = eDP-1-1
 enable-scroll = true
 
 format = <ramp> <label>
+format-foreground = #FDB813
 
 label = %percentage%%
 
 ; Only applies if <ramp> is used
-ramp-0 = 🌕
-ramp-1 = 🌔
-ramp-2 = 🌓
-ramp-3 = 🌒
-ramp-4 = 🌑
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
 
 ; Only applies if <bar> is used
 bar-width = 10
@@ -286,6 +299,29 @@ bar-indicator = |
 bar-fill = ─
 bar-empty = ─
 
-[global/wm]
-margin-top = 10
-margin-bottom = 10
+[module/system-nvidia-smi]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/system-nvidia-smi.sh
+interval = 2
+format-foreground = #76b900 
+format-padding = 0.7
+
+[module/ticker-crypto]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/ticker-crypto.sh
+interval = 600
+format-foreground = #f2a900
+format-padding = 0.7
+
+[module/openweathermap-simple]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/openweathermap-simple.sh
+interval = 600
+format-foreground = #9bc989
+
+[module/system-bluetooth-bluetoothctl]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/system-bluetooth-bluetoothctl.sh
+tail = true
+click-left = ~/polybar-scripts/system-bluetooth-bluetoothctl.sh --toggle &
+format-foreground = #005dff
