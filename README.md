@@ -10,3 +10,4 @@ Applications:
 6. ranger
 7. newsboat
 8. compton
+9. NeoVim

@@ -1,0 +1,386 @@
+[bar/bottom_bar]
+bottom = true
+monitor = ${env:MONITOR:}
+width = 100%
+height = 2.5%
+radius = 0
+fixed-center = false
+separator = |
+
+background = #1e1e20
+foreground = #c5c8c6
+
+line-size = 1
+line-color =
+
+border-size = 0
+border-color =
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = "Source Code Pro Semibold:size=14;1"
+font-1 = "Symbols Nert Font:size=14;1"
+font-2 = "Font Awesome 6 Free:style=Solid:size=14;1"
+font-3 = "Font Awesome 6 Brands:size=14;1"
+font-4 = "Weather Icons:size=16;1"
+
+modules-left = i3
+modules-center = 
+modules-right = ticker-crypto openweathermap-simple eth wlan kernelinfo docker fs-root fs-home system-nvidia-smi cputemp cpu memory date redshift backlight system-bluetooth-bluetoothctl pulseaudio battery powermenu
+
+tray-position = right
+;tray-padding =
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[settings]
+pseudo-transparency = true
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 0 
+label-mode-foreground = #131822
+label-mode-background = #131822
+
+label-focused = %index% %icon%
+label-focused-background = #233f66
+label-focused-foreground = #FFFFFF
+label-focused-padding = 1
+
+label-unfocused = %index% %icon%
+label-unfocused-background = #233f66
+label-unfocused-foreground = #848884
+label-unfocused-padding = 1
+
+label-visible = %index% %icon%
+label-visible-background = #233f66
+label-visible-foreground = #131822
+label-visible-padding = 1
+
+label-urgent = %index% %icon%
+label-urgent-background = #BA2922
+label-urgent-padding = 1
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-default =  
+
+[module/wlan]
+type = internal/network
+interface = wlo1 
+interval = 1.0
+ping-interval = 10
+
+format-connected = <label-connected>
+label-connected =  %local_ip%   %downspeed:3:4%  %upspeed:3:4%
+label-connected-foreground = #7289da
+
+format-disconnected = <label-disconnected>
+label-disconnected =  
+label-disconnected-foreground = #aa2200
+
+[module/eth]
+type = internal/network
+interface = eno1 
+interval = 3.0
+
+;format-connected-padding = 2
+format-connected-foreground = #7289da
+;format-connected-prefix = " "
+format-connected-prefix-foreground = #131822
+label-connected =  %local_ip%  %downspeed:3:4%  %upspeed:3:4%
+
+format-disconnected = <label-disconnected>
+label-disconnected =  
+label-disconnected-foreground = #aa2200
+
+[module/date]
+type = internal/date
+;date =    %%{F##06a28d} %d-%m-%Y%%{F-}   %%{F##06a28d}%l:%M:%S %p%%{F-}
+date =  %d-%m-%Y%%{F-} | %l:%M:%S %p%%{F-}
+date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
+
+format-foreground = #DAF7A6 
+format-padding = 0.7 
+
+label = %date%
+
+[module/cpu]
+type = internal/cpu
+;interval = 0.5
+format = <label>
+label =  CPU %percentage%% 
+format-foreground = #FF69B4
+;format-background = #233f66
+;format-padding = 0.7
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
+[module/memory]
+type = internal/memory
+format = <label>
+label =  RAM %percentage_used%%
+format-foreground = #FF6347
+;format-background = #233f66
+format-padding = 0.7
+
+bar-used-width = 5
+bar-used-foreground-0 = #aaff77
+bar-used-foreground-1 = #aaff77
+bar-used-foreground-2 = #fba922
+bar-used-foreground-3 = #ff5555
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-indicator-foreground = #ff
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = #444444
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+
+format-full-foreground = #32CD32
+format-discharging-foreground = #FF0000
+format-charging-foreground = #32CD32
+
+label-charging = %percentage%%
+label-discharging = %percentage%% 
+
+label-full = Full
+
+ramp-capacity-0 = 
+ramp-capacity-0-foreground = #f53c3c
+ramp-capacity-1 = 
+ramp-capacity-1-foreground = #ffa900
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
+bar-capacity-fill = █
+bar-capacity-fill-foreground = #ddffffff
+bar-capacity-fill-font = 3
+bar-capacity-empty = █
+bar-capacity-empty-font = 3
+bar-capacity-empty-foreground = #44ffffff
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = #233f66
+label-close =  cancel
+label-close-foreground = #233f66
+label-separator = |
+label-separator-foreground = #233f66
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+menu-0-2 = log off
+menu-0-2-exec = menu-open-3
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = reboot
+
+menu-2-0 = power off
+menu-2-0-exec = poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+menu-3-0 = log off
+menu-3-0-exec = pkill -KILL -u $USER
+menu-3-1 = cancel
+menu-3-1-exec = menu-open-0
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+use-ui-max = false
+interval = 5
+
+format-volume = <ramp-volume> <label-volume>
+format-muted = <label-muted>
+
+label-volume = %percentage%%
+label-volume-foreground = #00FFFF
+label-muted =  muted
+label-muted-foreground = #8B0000
+
+ramp-volume-foreground = #00FFFF
+ramp-volume-0 = 
+ramp-volume-1 =  
+ramp-volume-2 = 
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+output = eDP-1-1
+enable-scroll = true
+
+format = <ramp> <label>
+format-foreground = #FDB813
+
+label = %percentage%%
+
+; Only applies if <ramp> is used
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+
+; Only applies if <bar> is used
+bar-width = 10
+bar-indicator = |
+bar-fill = ─
+bar-empty = ─
+
+[module/system-nvidia-smi]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/system-nvidia-smi.sh
+;interval = 2
+format-foreground = #76b900 
+format-padding = 0.7
+
+[module/ticker-crypto]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/ticker-crypto.sh
+interval = 600
+format-foreground = #f2a900
+format-padding = 0.7
+
+[module/openweathermap-simple]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/openweathermap-simple.sh
+interval = 600
+format-foreground = #9bc989
+
+[module/kernelinfo]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/kernelinfo.sh
+;interval = 1
+format-foreground = #9932CC
+
+[module/cputemp]
+type= custom/script
+exec = ~/.config/polybar/polybar-scripts/cputemp.sh
+interval = 5
+format-foreground = #9bc989
+
+[module/system-bluetooth-bluetoothctl]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/system-bluetooth-bluetoothctl.sh
+tail = true
+click-left = ~/.config/polybar/polybar-scripts/system-bluetooth-bluetoothctl.sh --toggle &
+format-foreground = #00b6ff
+
+[module/polybar-windows]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/polybar-windows.sh
+format = <label>
+label = %output%
+label-padding = 1
+interval = 1
+
+[module/public-ip]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/public-ip.sh
+interval = 6000
+format-foreground = #9bc989
+
+[module/docker]
+type = custom/script
+exec = docker ps -q | wc -l
+interval = 1
+label =  %output%
+
+[module/redshift]
+type = custom/script
+format-prefix = " "
+exec = source ~/.config/polybar/polybar-scripts/polybar-redshift/env.sh && ~/.config/polybar/polybar-scripts/polybar-redshift/redshift.sh temperature
+click-left = source ~/.config/polybar/polybar-scripts/polybar-redshift/env.sh && ~/.config/polybar/polybar-scripts/polybar-redshift/redshift.sh toggle
+scroll-up = source ~/.config/polybar/polybar-scripts/polybar-redshift/env.sh && ~/.config/polybar/polybar-scripts/polybar-redshift/redshift.sh increase
+scroll-down = source ~/.config/polybar/polybar-scripts/polybar-redshift/env.sh && ~/.config/polybar/polybar-scripts/polybar-redshift/redshift.sh decrease
+interval=0.5
+format-foreground = #d06d5f
+
+[fs-base]
+type = internal/fs
+fixed-values = true
+label-mounted = %mountpoint%: %free%
+
+[module/fs-root]
+inherit = fs-base
+mount-0 = /
+label-mounted = 💾 %mountpoint% %percentage_used%%
+label-mounted-foreground = #969696
+
+[module/fs-home]
+inherit = fs-base
+mount-0 = /home
+label-mounted = 💾 %mountpoint% %percentage_used%%
+label-mounted-foreground = #00bcd4
