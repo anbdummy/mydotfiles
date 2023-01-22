@@ -9,3 +9,7 @@ color article cyan default
 ### Auto Update Feeds ###
 auto-reload yes
 reload-time 120
+reload-threads 4
+download-retries 4
+
+browser "firefox %u"
